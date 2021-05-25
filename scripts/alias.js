@@ -1,7 +1,12 @@
-const path = require('path')
+/**
+ * 提供一个对象，是key对应到真实路径的关系。
+ */
 
+const path = require('path')
+// path.resolve是nodejs提供的路径解析的方法
 const resolve = p => path.resolve(__dirname, '../', p)
 
+// src下不同文件的路径映射
 module.exports = {
   vue: resolve('src/platforms/web/entry-runtime-with-compiler'),
   compiler: resolve('src/compiler'),

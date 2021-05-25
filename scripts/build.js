@@ -1,16 +1,17 @@
-const fs = require('fs')
-const path = require('path')
-const zlib = require('zlib')
-const rollup = require('rollup')
-const uglify = require('uglify-js')
+const fs = require('fs') // nokdejs 文件模块
+const path = require('path') // path 模块提供了一些用于处理文件路径的小工具
+const zlib = require('zlib') // nodejs 资源压缩模块
+const rollup = require('rollup')// JavaScript模块打包器
+const uglify = require('uglify-js') // 压缩代码的工具
 
+// 检测dist路径是否存在，如果不存在创建dist文件夹
 if (!fs.existsSync('dist')) {
   fs.mkdirSync('dist')
 }
 
+// 拿到要构建的所有配置项
 let builds = require('./config').getAllBuilds()
-console.log(JSON.stringify(builds))
-console.log(process.argv)
+
 // filter builds via command line arg
 /**
  * process.argv[2]是npm run build时传入的参数；例如：npm run build:ssr

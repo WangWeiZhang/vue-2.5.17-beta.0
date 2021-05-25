@@ -23,22 +23,33 @@ const weexFactoryPlugin = {
     return '}'
   }
 }
-
+// 引入alias， alial.js: 对文件路径做了一层映射，映射成简单的key值。
 const aliases = require('./alias')
+console.log(aliases)
+
+// 获取文件完整路径（根据传入文件路径的第一层和aliases的key做匹配，返回对应文件的完整路径）
 const resolve = p => {
   const base = p.split('/')[0]
   if (aliases[base]) {
+    console.log('resolve, alias中包含的', path.resolve(aliases[base], p.slice(base.length + 1)))
+    // aliases中如果包含解析出的key，就将映射到的路径 + 解析出得路径，返回文件完整路径
     return path.resolve(aliases[base], p.slice(base.length + 1))
   } else {
+    console.log('resolve, alias不包含的', path.resolve(__dirname, '../', p))
+    // aliases中如果不包含解析出的key，就将当前路径的上一层 + 传入路径拼接，返回完整路径。
     return path.resolve(__dirname, '../', p)
   }
 }
 
+// 不同版本的vuejs的配置
 const builds = {
   // Runtime only (CommonJS). Used by bundlers e.g. Webpack & Browserify
   'web-runtime-cjs': {
+    // 编译前入口文件路径，最后编译出dest出口文件
     entry: resolve('web/entry-runtime.js'),
+    // 编译后的出口文件路径
     dest: resolve('dist/vue.runtime.common.js'),
+    // 构建出来的文件格式
     format: 'cjs',
     banner
   },
@@ -168,7 +179,9 @@ const builds = {
   }
 }
 
+// 封装rollup需要的数据格式，最终返回
 function genConfig (name) {
+  // 指定build中
   const opts = builds[name]
   const config = {
     input: opts.entry,
@@ -190,13 +203,11 @@ function genConfig (name) {
       name: opts.moduleName || 'Vue'
     }
   }
-
   if (opts.env) {
     config.plugins.push(replace({
       'process.env.NODE_ENV': JSON.stringify(opts.env)
     }))
   }
-
   Object.defineProperty(config, '_name', {
     enumerable: false,
     value: name
@@ -204,10 +215,15 @@ function genConfig (name) {
 
   return config
 }
+console.log('process.env.TARGET:', process.env.TARGET)
 
+// 区分是本地运行还是构建源码
 if (process.env.TARGET) {
+  // 本地运行
   module.exports = genConfig(process.env.TARGET)
 } else {
+  // 暂时没用到getBuild
   exports.getBuild = genConfig
+  // 构建源码，将builds对象中的所有key查找到，一次调用genConfig处理成rollup最终需要的格式
   exports.getAllBuilds = () => Object.keys(builds).map(genConfig)
 }
