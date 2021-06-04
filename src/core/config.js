@@ -1,5 +1,7 @@
 /* @flow */
-
+/**
+ * 定义了Vue的全局config，可以自行查看vue全局配置Api
+ */
 import {
   no,
   noop,

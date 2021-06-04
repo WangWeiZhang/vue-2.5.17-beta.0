@@ -32,9 +32,9 @@ export function initGlobalAPI (Vue: GlobalAPI) {
   // 向Vue的config属性上，定义了configDef
   Object.defineProperty(Vue, 'config', configDef)
 
-  // exposed util methods.
-  // NOTE: these are not considered part of the public API - avoid relying on
-  // them unless you are aware of the risk.
+  // 暴露的 util 方法。
+  // 注意：这些不被视为公共 API 的一部分 - 避免依赖
+  // 除非您意识到风险。
   // 定义了一个util的方法，最好不要用，因为内部方法实现不稳定，有一定风险，有可能随着版本的变化会变
   Vue.util = {
     warn,
@@ -47,9 +47,10 @@ export function initGlobalAPI (Vue: GlobalAPI) {
   Vue.delete = del
   Vue.nextTick = nextTick
 
-  // 使用options合并一些方法
+  // 将Vue下的option属性设置成一个原型为null的对象
   Vue.options = Object.create(null)
   ASSET_TYPES.forEach(type => {
+    // 创建一个原型为null的对象，将其分别赋值给遍历到的要定义的方法。
     Vue.options[type + 's'] = Object.create(null)
   })
 
