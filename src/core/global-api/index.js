@@ -28,22 +28,26 @@ export function initGlobalAPI (Vue: GlobalAPI) {
       )
     }
   }
+
+  // 向Vue的config属性上，定义了configDef
   Object.defineProperty(Vue, 'config', configDef)
 
   // exposed util methods.
   // NOTE: these are not considered part of the public API - avoid relying on
   // them unless you are aware of the risk.
+  // 定义了一个util的方法，最好不要用，因为内部方法实现不稳定，有一定风险，有可能随着版本的变化会变
   Vue.util = {
     warn,
     extend,
     mergeOptions,
     defineReactive
   }
-
+  // 定义 set delete nextick 方法
   Vue.set = set
   Vue.delete = del
   Vue.nextTick = nextTick
 
+  // 使用options合并一些方法
   Vue.options = Object.create(null)
   ASSET_TYPES.forEach(type => {
     Vue.options[type + 's'] = Object.create(null)
