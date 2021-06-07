@@ -3,7 +3,7 @@
  * @Author: wangwz10@lenovo.com
  * @LastEditors: wangwz10@lenovo.com
  * @Date: 2021-06-06 15:54:26
- * @LastEditTime: 2021-06-06 15:55:13
+ * @LastEditTime: 2021-06-06 17:28:08
  * @FilePath: \vue-2.5.17-beta.0\src\core\instance\index.js
  */
 import { initMixin } from './init'
@@ -25,8 +25,14 @@ function Vue (options) {
   this._init(options)
 }
 
-// 调用mixin方法，每个mixin方法中都是往Vue的原型对象上挂载了一部分方法（mixin实现了Vue的原型上挂载方法的一部分）
+/**
+ * 调用mixin方法，每个mixin方法中都是往Vue的原型对象上挂载了一部分方法（mixin实现了Vue的原型上挂载方法的一部分）
+ */
+
+// 挂载_init方法
 initMixin(Vue)
+
+
 stateMixin(Vue)
 eventsMixin(Vue)
 lifecycleMixin(Vue)
@@ -39,7 +45,7 @@ export default Vue
  *    因为es6比较难写，而es5可以使用prototype上绑定好多对象和方法。并且可以把方法和对象拆分到不同的文件下，方便代码的管理，不用在一个大文件下，把所有部分都定义在一块。
  * 方便代码的管理与维护。
  * 
- * 总结：所以Vue本身就是一个函数，是用函数实现的一个类，类上挂载了很多原型和方法
+ * 总结：所以Vue本身就是一个函数，是用函数实现的一个类，类上挂载了很多原型和方法，除了使用mixin混入方法，前面的runtime什么的也挂载了一部分方法
  */
 
 // 全局方法，定义在/core/global-api/

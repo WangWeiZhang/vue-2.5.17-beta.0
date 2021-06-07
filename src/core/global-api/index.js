@@ -1,3 +1,11 @@
+/*
+ * @Description: Type your file description
+ * @Author: Type your email address
+ * @LastEditors: wangwz10@lenovo.com
+ * @Date: 2021-06-06 15:54:26
+ * @LastEditTime: 2021-06-06 17:47:55
+ * @FilePath: \vue-2.5.17-beta.0\src\core\global-api\index.js
+ */
 /* @flow */
 
 import config from '../config'
@@ -56,10 +64,13 @@ export function initGlobalAPI (Vue: GlobalAPI) {
 
   // this is used to identify the "base" constructor to extend all plain-object
   // components with in Weex's multi-instance scenarios.
+  // 定义一个_base 指向 Vue
   Vue.options._base = Vue
 
+  // builtInComponents 是一个Vue内部组件，通过extend方法将其扩展到Vue的components下
   extend(Vue.options.components, builtInComponents)
 
+  // 初始化，Vue use全局API
   initUse(Vue)
   initMixin(Vue)
   initExtend(Vue)

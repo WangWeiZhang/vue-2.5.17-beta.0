@@ -1,8 +1,17 @@
+/*
+ * @Description: 创建 ASSET_TYPES 模块下的具体方法
+ * @Author: wangwz10@lenovo.com
+ * @LastEditors: wangwz10@lenovo.com
+ * @Date: 2021-06-06 15:54:26
+ * @LastEditTime: 2021-06-06 17:51:32
+ * @FilePath: \vue-2.5.17-beta.0\src\core\global-api\assets.js
+ */
 /* @flow */
 
 import { ASSET_TYPES } from 'shared/constants'
 import { isPlainObject, validateComponentName } from '../util/index'
 
+// 创建 ASSET_TYPES 下的具体方法
 export function initAssetRegisters (Vue: GlobalAPI) {
   /**
    * Create asset registration methods.

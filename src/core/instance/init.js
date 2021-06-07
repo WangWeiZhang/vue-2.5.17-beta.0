@@ -12,21 +12,24 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
+// 像Vue原型上混入_init方法
 export function initMixin (Vue: Class<Component>) {
+  // 像Vue原型对象上挂载_init方法，接收一个options参数（配置项）
   Vue.prototype._init = function (options?: Object) {
+    // 创建一个常量vm，并让vm同时指向Vue构造函数
     const vm: Component = this
-    // a uid
+    // #暂时没读懂 a uid
     vm._uid = uid++
 
     let startTag, endTag
-    /* istanbul ignore if */
+    /* #暂时没读懂 istanbul ignore if */
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       startTag = `vue-perf-start:${vm._uid}`
       endTag = `vue-perf-end:${vm._uid}`
       mark(startTag)
     }
 
-    // a flag to avoid this being observed
+    // #暂时没读懂 a flag to avoid this being observed
     vm._isVue = true
     // merge options
     if (options && options._isComponent) {
@@ -71,6 +74,7 @@ export function initMixin (Vue: Class<Component>) {
   }
 }
 
+// 初始化内部组件
 export function initInternalComponent (vm: Component, options: InternalComponentOptions) {
   const opts = vm.$options = Object.create(vm.constructor.options)
   // doing this because it's faster than dynamic enumeration.
@@ -90,6 +94,7 @@ export function initInternalComponent (vm: Component, options: InternalComponent
   }
 }
 
+// 解析构造函数选项
 export function resolveConstructorOptions (Ctor: Class<Component>) {
   let options = Ctor.options
   if (Ctor.super) {
@@ -114,6 +119,7 @@ export function resolveConstructorOptions (Ctor: Class<Component>) {
   return options
 }
 
+// 解析修改选项
 function resolveModifiedOptions (Ctor: Class<Component>): ?Object {
   let modified
   const latest = Ctor.options
@@ -128,6 +134,7 @@ function resolveModifiedOptions (Ctor: Class<Component>): ?Object {
   return modified
 }
 
+// 重复数据的删除
 function dedupe (latest, extended, sealed) {
   // compare latest and sealed to ensure lifecycle hooks won't be duplicated
   // between merges

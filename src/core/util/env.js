@@ -1,9 +1,16 @@
 /* @flow */
-
+/*
+ * @Description: Type your file description
+ * @Author: Type your email address
+ * @LastEditors: wangwz10@lenovo.com
+ * @Date: 2021-06-06 15:54:26
+ * @LastEditTime: 2021-06-06 16:39:46
+ * @FilePath: \vue-2.5.17-beta.0\src\core\util\env.js
+ */
 // can we use __proto__?
 export const hasProto = '__proto__' in {}
 
-// Browser environment sniffing
+// 浏览器环境嗅探 
 export const inBrowser = typeof window !== 'undefined'
 export const inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform
 export const weexPlatform = inWeex && WXEnvironment.platform.toLowerCase()
@@ -16,6 +23,7 @@ export const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform ==
 export const isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
 
 // Firefox has a "watch" function on Object.prototype...
+// Firefox 在 Object.prototype 上有一个“监视”功能...
 export const nativeWatch = ({}).watch
 
 export let supportsPassive = false

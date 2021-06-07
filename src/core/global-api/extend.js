@@ -1,9 +1,18 @@
+/*
+ * @Description: 定义了一个全局的Vue的extend方法
+ * @Author: wangwz10@lenovo.com
+ * @LastEditors: wangwz10@lenovo.com
+ * @Date: 2021-06-06 15:54:26
+ * @LastEditTime: 2021-06-06 17:49:25
+ * @FilePath: \vue-2.5.17-beta.0\src\core\global-api\extend.js
+ */
 /* @flow */
 
 import { ASSET_TYPES } from 'shared/constants'
 import { defineComputed, proxy } from '../instance/state'
 import { extend, mergeOptions, validateComponentName } from '../util/index'
 
+// 定义了一个全局的Vue的extend方法
 export function initExtend (Vue: GlobalAPI) {
   /**
    * Each instance constructor, including Vue, has a unique
